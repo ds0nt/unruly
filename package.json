@@ -1,0 +1,28 @@
+{
+  "name": "unruly",
+  "version": "0.1.0",
+  "description": "config that everyone hates the least",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ds0nt/least.git"
+  },
+  "keywords": [
+    "config",
+    "simple",
+    "usable",
+    "environment",
+    "settings"
+  ],
+  "author": "Daniel Sont <dan.sont@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ds0nt/least/issues"
+  },
+  "homepage": "https://github.com/ds0nt/least#readme",
+  "dependencies": {
+  }
+}
