@@ -20,7 +20,6 @@ Create your **app.config**
 
 
 ```text
-
 port = 8080
 
 redis = 127.0.0.1:6379
@@ -28,7 +27,6 @@ redis = 127.0.0.1:6379
 client = ./client
 logs = ./logs
 stuff = ./search.txt
-
 ```
 
 Put this in your editor
