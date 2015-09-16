@@ -33,22 +33,28 @@ stuff = ./search.txt
 Put this in your editor
 
 ```javascript
-
 var unruly = require('unruly')
 
-console.log(unruly)
+console.dir(unruly)
 ```
 
-```javascript
-// Since ES6 is better
+It's good
 
-import config from 'unruly'
+```shell
+$ node foo.js
+{ port: '8080',
+  redis: '127.0.0.1:6379',
+  client: './client',
+  logs: './logs',
+  stuff: './search.txt' }
+  
+$ PORT=2000 node foo.js
+{ port: '2000',
+  redis: '127.0.0.1:6379',
+  client: './client',
+  logs: './logs',
+  stuff: './search.txt' }
 
-// or
-
-import { port, client } from 'unruly'
-
-console.log(`server not started on ${port}, sorry`)
+$ echo 'Hooray'
 
 ```
-
