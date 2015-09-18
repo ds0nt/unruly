@@ -2,7 +2,7 @@
 
 Those config files we never hated
 
-[Example Repo](https://github.com/mhtranbn/unruly-example)
+[An Example Repo](https://github.com/mhtranbn/unruly-example)
 
 ### Usage
 
@@ -16,46 +16,40 @@ npm install --save unruly
 
 ### Example
 
-Create your **app.config**
-
+Create an **app.config** for your project
 
 ```text
-
+host = localhost
 port = 8080
 
-redis = 127.0.0.1:6379
+redis  = 127.0.0.1:6379
 
-client = ./client
-logs = ./logs
-stuff = ./search.txt
-
+client-dir = ./client
+log-dir    = ./logs
 ```
 
-Put this in your editor
+**In javascript**
 
 ```javascript
 var unruly = require('unruly')
 
-console.dir(unruly)
+console.log(unruly.host)
+console.log(unruly.port)
+
+console.log(unruly.redis)
+
+// '-' becomes '_'
+console.log(unruly.client_dir)
+console.log(unruly.log_dir)
+
 ```
 
-It's good
+### Environment Variables
 
 ```shell
-$ node foo.js
-{ port: '8080',
-  redis: '127.0.0.1:6379',
-  client: './client',
-  logs: './logs',
-  stuff: './search.txt' }
-  
-$ PORT=2000 node foo.js
-{ port: '2000',
-  redis: '127.0.0.1:6379',
-  client: './client',
-  logs: './logs',
-  stuff: './search.txt' }
-
-$ echo 'Hooray'
-
+PORT=2000 LOG_DIR=/var/log node foo.js
 ```
+
+### Communication / Collaboration
+
+Submit an issue, a pull request, or send an email to ``dan.sont@gmail.com``
