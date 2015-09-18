@@ -1,55 +1,64 @@
 # Unruly
 
-Those config files we never hated
-
-[An Example Repo](https://github.com/mhtranbn/unruly-example)
-
-### Usage
+Docker friendly and stupid easy configuration.
 
 ```sh
-
-cd project-dir
-
 npm install --save unruly
-
 ```
 
-### Example
+### Create app.config
 
-Create an **app.config** for your project
-
-```text
-host = localhost
+```ini
 port = 8080
-
-redis  = 127.0.0.1:6379
-
-client-dir = ./client
-log-dir    = ./logs
+redis = 127.0.0.1:6379
+log-dir = ./logs
 ```
 
-**In javascript**
+### import unruly
 
 ```javascript
-var unruly = require('unruly')
-
-console.log(unruly.host)
-console.log(unruly.port)
-
-console.log(unruly.redis)
-
-// '-' becomes '_'
-console.log(unruly.client_dir)
-console.log(unruly.log_dir)
-
+import { port, redis, log_dir } from 'unruly'
 ```
 
-### Environment Variables
+### details
+
+Place the app.config beside the file you execute,
+
+```text
+├── main.js
+├── app.config
+```
+
+as determined by
+
+```javascript
+console.log(require.main.filename)
+```
+
+The config lines are matched against this regex:
+
+```javascript
+/([^\s*=]*)\s*=\s*(.*)/
+```
+
+and transformed as such
+
+```javascript
+.map(
+	([ k, v ]) => ([ k.replace(/[-\s]/g, '_'), v ])
+)
+.map(
+			/*     unruly key,      process.env key    */
+	([k, v]) => ([ k.toLowerCase(), k.toUpperCase(), v ])
+)
+```
+
+Environment variables trump all
 
 ```shell
-PORT=2000 LOG_DIR=/var/log node foo.js
+PORT=2000 ./main.js
 ```
 
 ### Communication / Collaboration
 
-Submit an issue, a pull request, or send an email to ``dan.sont@gmail.com``
+Submit an issue, a pull request, or send an email to ``dan.sont@gmail.com`` and I'll reply if I see it
