@@ -18,7 +18,12 @@ log-dir = ./logs
 
 ```javascript
 import { port, redis, log_dir } from 'unruly'
+
+console.log(`got ${port}s?`)
 ```
+
+** the end **
+
 
 ### details
 

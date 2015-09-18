@@ -1,6 +1,6 @@
 {
   "name": "unruly",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "config that everyone hates the least",
   "main": "dist/index.js",
   "scripts": {
