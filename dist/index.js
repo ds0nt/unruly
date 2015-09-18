@@ -11,12 +11,17 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+var _debug = require('debug');
+
+var _debug2 = _interopRequireDefault(_debug);
+
 var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
 var _path = require('path');
 
+var debug = (0, _debug2['default'])('unruly');
 var file = (0, _path.join)((0, _path.dirname)(require.main.filename), 'app.config');
 var block = _fs2['default'].readFileSync(file, 'UTF-8');
 
@@ -25,9 +30,11 @@ var config = {};
 var pairs = block.split("\n").map(function (x) {
 	return x.trim();
 }).map(function (x) {
-	return x.split(/\s*=\s*/);
+	var matches = x.match(/([^\s*=]*)\s*=\s*(.*)/);
+	if (!matches) return false;
+	return [matches[1], matches[2]];
 }).filter(function (x) {
-	return x[0].length > 0;
+	return x && x[0].length > 0;
 }).map(function (_ref) {
 	var _ref2 = _slicedToArray(_ref, 2);
 
@@ -42,6 +49,8 @@ var pairs = block.split("\n").map(function (x) {
 	return [k.toLowerCase(), k.toUpperCase(), v];
 });
 
+debug(['Key', 'Val', 'Env Var']);
+
 var _iteratorNormalCompletion = true;
 var _didIteratorError = false;
 var _iteratorError = undefined;
@@ -55,6 +64,8 @@ try {
 		var value = _step$value[2];
 
 		config[k] = typeof process.env[K] !== 'undefined' ? process.env[K] : value;
+
+		debug([k, value, process.env[K]]);
 	}
 } catch (err) {
 	_didIteratorError = true;
