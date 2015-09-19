@@ -9,9 +9,7 @@ let debug = Debug('unruly')
 let file = join(dirname(require.main.filename), 'app.config')
 let block = fs.readFileSync(file, 'UTF-8')
 
-let config = {}
-
-let pairs = block.split("\n")
+let lines = block.split("\n")
 	.map(x => x.trim())
 	.map(x => {
 		let matches = x.match(/([^\s*=]*)\s*=\s*(.*)/)
@@ -30,12 +28,24 @@ let pairs = block.split("\n")
 
 debug([ 'Key', 'Val', 'Env Var' ])
 
-for (let [k, K, value] of pairs) {
-  config[k] = typeof process.env[K] !== 'undefined'
-  	? process.env[K]
-  	: value
 
-	debug([ k, value, process.env[K] ] )
+
+let config = {}
+let environment = {}
+
+for (let [c, e, value] of lines) {
+  if (typeof process.env[e] !== 'undefined') {
+  	config[c] = e
+  } else {
+  	config[c] = value
+  }
+
+  environment[e] = config[c]
 }
 
-export default config
+
+export default {	
+	environment,
+	... config,
+	bashify: () => lines.map(x => console.log(`export ${x[1]}=${config[x[0]]}`))
+}
