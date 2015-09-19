@@ -13,21 +13,18 @@ redis = 127.0.0.1:6379
 log-dir = ./logs
 ```
 
+```sh
+vim main.js
+```
+
 ```javascript
 #!/bin/babel-node
 import { port, redis, log_dir } from 'unruly'
-
-console.log(`got ${port}s?`)
 ```
 
 ```sh
-PORT=2000 ./main.js
-```
-
-** it didn't work? **
-
-```sh
-DEBUG=unruly ./main.js
+PORT=1337 ./main.js
+DEBUG=unruly ./main.js  # debugging is 1337 too... :)
 ```
 
 ### Communication / Collaboration
