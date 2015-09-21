@@ -15,7 +15,7 @@ let lines = block.split("\n")
 		let matches = x.match(/([^\s*=]*)\s*=\s*(.*)/)
 		if (!matches)
 			return false;
-		return [ matches[1], matches[2] ] 
+		return [ matches[1], matches[2] ]
 	})
 	.filter(x => x && x[0].length > 0)
 	.map(
@@ -25,13 +25,8 @@ let lines = block.split("\n")
 		([k, v]) => ([ k.toLowerCase(), k.toUpperCase(), v ])
 	)
 
-
-debug([ 'Key', 'Val', 'Env Var' ])
-
-
-
 let config = {}
-let environment = {}
+let envify = {}
 
 for (let [c, e, value] of lines) {
   if (typeof process.env[e] !== 'undefined') {
@@ -39,13 +34,14 @@ for (let [c, e, value] of lines) {
   } else {
   	config[c] = value
   }
-
-  environment[e] = config[c]
+  debug(c, config[c])
+  envify[e] = config[c]
 }
 
+config.file = config
+config.envify = envify
+config.bashify = () => lines.map(x =>
+	console.log(`export ${x[1]}=${config[x[0]]}`
+))
 
-export default {	
-	environment,
-	... config,
-	bashify: () => lines.map(x => console.log(`export ${x[1]}=${config[x[0]]}`))
-}
+export default config
