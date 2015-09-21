@@ -30,7 +30,7 @@ let envify = {}
 
 for (let [c, e, value] of lines) {
   if (typeof process.env[e] !== 'undefined') {
-  	config[c] = e
+  	config[c] = process.env[e]
   } else {
   	config[c] = value
   }
